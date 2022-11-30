@@ -39,11 +39,15 @@ public class MainActivity extends AppCompatActivity {
         byRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listItem.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Item item = snapshot.getValue(Item.class);
+                    Item item = new Item();
+                    String x = dataSnapshot.child("TenNgonNgu").getValue().toString();
+                    item.setTenNgonNgu(x);
                     item.setId(dataSnapshot.getKey());
                     listItem.add(item);
                 }
+                adapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
             }
             @Override
